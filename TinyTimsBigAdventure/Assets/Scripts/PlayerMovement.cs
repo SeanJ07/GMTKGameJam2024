@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //Animation variables
+    private SpriteRenderer spriteRenderer;
 
+    // Movement variables
     public float moveSpeed = 15f;
     public float jumpForce = 10f;
     public Transform groundCheck;
@@ -18,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb= GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -31,6 +36,16 @@ public class PlayerMovement : MonoBehaviour
         float moveInput = Input.GetAxis("Horizontal");
         Vector2 moveVelocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         rb.velocity = moveVelocity;
+
+        // Handle Animation
+        if (moveInput > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (moveInput < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
 
         // Handle jumping
         if (isGrounded && Input.GetButtonDown("Jump"))
