@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
     public Transform groundCheck;
     public LayerMask groundLayer;
+    public Animator animator;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -46,12 +47,16 @@ public class PlayerMovement : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
+        animator.SetFloat("player_Speed", Mathf.Abs(moveInput));
 
         // Handle jumping
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse); 
+            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            //animator.SetBool("isJump", true); jumping animation
         }
+
+
     }
 }
 
