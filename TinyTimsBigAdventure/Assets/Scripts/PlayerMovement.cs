@@ -7,13 +7,15 @@ public class PlayerMovement : MonoBehaviour
 {
     //Animation variables
     private SpriteRenderer spriteRenderer;
-
+    public SpriteRenderer flashlightSprite;
     // Movement variables
     public float moveSpeed = 15f;
     public float jumpForce = 10f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator animator;
+    public Transform flashlight;
+    
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -23,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb= GetComponent<Rigidbody2D>();
+        
+        
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -30,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        // Check if the player is grounded
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        
+        
 
         // Handle horizontal movement
         float moveInput = Input.GetAxis("Horizontal");
@@ -42,10 +46,13 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput > 0)
         {
             spriteRenderer.flipX = false;
+            flashlight.localScale = new Vector3( 1, 1, 1);
         }
         else if (moveInput < 0)
         {
             spriteRenderer.flipX = true;
+            flashlight.localScale = new Vector3(-1, 1, 1);
+
         }
         animator.SetFloat("player_Speed", Mathf.Abs(moveInput));
 
@@ -53,10 +60,20 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
             rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-            //animator.SetBool("isJump", true); jumping animation
+            isGrounded = false;
+            animator.SetBool("isJump", true);
         }
+        
 
 
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isGrounded = true;
+        animator.SetBool("isJump", false);
+    }
+    
+
+    
 }
 

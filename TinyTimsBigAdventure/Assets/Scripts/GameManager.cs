@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     int playerLives = 3;
 
+    public GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        
+        if(playerLives == 0)
+        {
+            Destroy(player);
+        }
     }
 }

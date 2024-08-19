@@ -8,16 +8,19 @@ public class EnemyController : MonoBehaviour
     public List<GameObject> waypoints;
     public int currentWaypoint = 0;
 
+    public float enemyHealth;
+
     // Start is called before the first frame update
     void Start()
     {
         transform.position = waypoints[currentWaypoint].transform.position;
+        enemyHealth = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        EnemyDeath();
     }
     private void FixedUpdate()
     {
@@ -31,5 +34,12 @@ public class EnemyController : MonoBehaviour
         }
 
         
+    }
+    private void EnemyDeath()
+    {
+        if(enemyHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
