@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer flashlightSprite;
     // Movement variables
     public float moveSpeed = 15f;
-    public float jumpForce = 10f;
+    public float jumpForce = 15f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator animator;

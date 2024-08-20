@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerSizeChange : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerSizeChange : MonoBehaviour
     void Start()
     {
         isSmall = true;
-        growBigCharge = 5;
+        growBigCharge = 3;
         flashlight.SetActive(false);
         growthText.text = "Growth Charges: " + growBigCharge;
 
@@ -38,9 +39,10 @@ public class PlayerSizeChange : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
             isSmall = true;
-            
+            flashlight.SetActive(false);
         }
 
          
     }
+
 }
