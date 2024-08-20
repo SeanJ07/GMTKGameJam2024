@@ -22,12 +22,12 @@ public class PlayerEvents : MonoBehaviour
         if (collision.tag == "enemy")
         {
             // Gameover
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(3);
         }
         else if (collision.tag == "medallion")
         {
             // Endscreen
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(2);
         }
     }
 }
