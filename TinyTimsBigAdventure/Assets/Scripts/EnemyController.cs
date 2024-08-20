@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
     public float speed = 1f;
-    public List<GameObject> waypoints;
-    public int currentWaypoint = 0;
 
     public float enemyHealth;
 
+    SpriteRenderer spr;
+
     // Start is called before the first frame update
     void Start()
-    {
-        transform.position = waypoints[currentWaypoint].transform.position;
+    { 
+        spr = gameObject.GetComponent<SpriteRenderer>();
         enemyHealth = 10;
     }
 
@@ -24,16 +25,19 @@ public class EnemyController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Vector2.Distance(transform.position, waypoints[currentWaypoint].transform.position) < 1.0f)
+        Vector3 target = GameObject.Find("Player").transform.position;
+        //transform.Translate(Vector2.left * Time.deltaTime * speed);
+        if (this.transform.position.x - target.x < 2)
         {
-            currentWaypoint += 1;
+            this.transform.Translate(Vector2.right * Time.deltaTime * speed);
+            spr.flipX = true;
         }
-        if (currentWaypoint == waypoints.Count)
+        else if (this.transform.position.x - target.x > 2)
         {
-            currentWaypoint = 0;
+            this.transform.Translate(Vector2.left * Time.deltaTime * speed);
+            spr.flipX = false;
         }
 
-        
     }
     private void EnemyDeath()
     {
